@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, User } from "@prisma/client"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
@@ -13,7 +13,7 @@ export const registerUser = async(req: Request, res: Response) => {
         res.status(400).json("You must fill all required fields")
     }
 
-    // // Check if already have a user with this email
+    // Check if already have a user with this email
     const userExists = await prisma.user.findUnique({
         where: {
             email: email
@@ -25,7 +25,7 @@ export const registerUser = async(req: Request, res: Response) => {
         throw new Error("user alrady exists")
     }
 
-    // // Hash password 
+    // Hash password 
     const salt = await bcrypt.genSalt(10) // generate salt
     const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -88,6 +88,44 @@ export const getUser = async(req: Request, res: Response) => {
     res.status(200).json(req.body.user)
 }
 
+export const updateUser = async(req: Request, res: Response) => {
+    const { id }:User = req.body.user
+    const { username, email, password } = req.body
+
+    if(!username && !email && !password) {
+        res.status(400)
+        throw new Error("you must at least fill one field")
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    if(user) {
+        const salt = await bcrypt.genSalt(10) // generate salt
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        await prisma.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                username: username,
+                email: email,
+                password: hashedPassword,
+            }
+        })
+
+        res.status(200).json(`${username} was updated successfully`)
+    } else {
+        res.status(400)
+        throw new Error("user do not exists")
+    }
+
+
+}
 const generateToken = (id: string) => {
     const secret: string = process.env.JWT_SECRET || "secret"
     return jwt.sign({ id }, secret, {
