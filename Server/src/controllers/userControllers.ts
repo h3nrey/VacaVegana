@@ -126,6 +126,29 @@ export const updateUser = async(req: Request, res: Response) => {
 
 
 }
+
+export const deleteUser = async(req: Request, res: Response) => {
+    const { id }: User = req.body.user
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+    
+    if(user) {
+        await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+
+        res.status(200).json("user deleted successfully")
+    } else {
+        res.status(400)
+        throw new Error("User not found")
+    }
+}
 const generateToken = (id: string) => {
     const secret: string = process.env.JWT_SECRET || "secret"
     return jwt.sign({ id }, secret, {

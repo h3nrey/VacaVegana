@@ -1,4 +1,4 @@
-import { getUser, loginUser, registerUser, updateUser } from "../controllers/userControllers";
+import { deleteUser, getUser, loginUser, registerUser, updateUser } from "../controllers/userControllers";
 import { protect } from "../Middlewares/auth";
 export const router = express.Router()
 import express, {NextFunction, Request, Response} from "express";
@@ -16,3 +16,5 @@ router.get("/", protect, getUser)
 // Update User 
 router.put("/", protect, updateUser)
 
+// Delete User 
+router.delete("/", protect, deleteUser)
