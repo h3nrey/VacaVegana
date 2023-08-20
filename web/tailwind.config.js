@@ -8,13 +8,14 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        "md": "750px",
         "lg": "1000px"
       }, 
       colors: {
         "primary-base": "#4AAE48",
         "primary-light": "#8ED676",
         "white": "#ffffff",
-        "gray": "##EFEFEF",
+        "gray": "#EdddEF",
         "yellow": "#FBD34A",
       },
       borderRadius: {

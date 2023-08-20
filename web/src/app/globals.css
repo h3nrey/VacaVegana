@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input:visited, input:focus, input:focus-visible {
+  outline: none;
+}
