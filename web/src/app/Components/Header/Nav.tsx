@@ -36,12 +36,26 @@ export default function Nav() {
     const [showNav, setShowNav] = useState(false)
 
     return (
-        <div className="">
-            <button onClick={() => setShowNav(true)}>
-                <List size={24} color={colors.white} weight="bold" />
-            </button>
+        <>
+            <div className="lg:hidden">
+                <button onClick={() => setShowNav(true)}>
+                    <List size={24} color={colors.white} weight="bold" />
+                </button>
 
-            <NavModal showNav={showNav} categories={categories} closeNav={setShowNav} />
-        </div>
+                <NavModal showNav={showNav} categories={categories} closeNav={setShowNav} />
+            </div>
+
+            <div className="hidden lg:flex lg:gap-2">
+                {categories.map(category => (
+                    <Link key={category.id} href={category.url}>
+                        <div
+                            className="text-white text-[24px] relative
+                        after:bg-white after:absolute after:left-0 after:top-full after:w-full after:content-[''] after:h-[8px] after:scale-x-0 hover:after:scale-x-100 after:transition-all after:origin-left delay-75 after:-translate-y-[50%]">
+                            {category.name}
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </>
     )
 }
