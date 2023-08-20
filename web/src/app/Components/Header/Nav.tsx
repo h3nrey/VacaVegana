@@ -49,8 +49,8 @@ export default function Nav() {
                 {categories.map(category => (
                     <Link key={category.id} href={category.url}>
                         <div
-                            className="text-white text-[24px] relative
-                        after:bg-white after:absolute after:left-0 after:top-full after:w-full after:content-[''] after:h-[8px] after:scale-x-0 hover:after:scale-x-100 after:transition-all after:origin-left delay-75 after:-translate-y-[50%]">
+                            className="text-white text-[1.125rem] relative
+                        after:bg-white after:absolute after:left-0 after:top-full after:w-full after:content-[''] after:h-[4px] after:scale-x-0 hover:after:scale-x-100 after:transition-all after:origin-left delay-75 after:-translate-y-[50%]">
                             {category.name}
                         </div>
                     </Link>
