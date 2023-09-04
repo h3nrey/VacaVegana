@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import { PrismaClient } from '@prisma/client'
+import { Category, PrismaClient, Recipe } from '@prisma/client'
 const prisma = new PrismaClient({})
 
 export const getTrendingRecipes = async(req: Request, res: Response) => {
@@ -13,11 +13,17 @@ export const getTrendingRecipes = async(req: Request, res: Response) => {
 }
 
 export const createRecipes = async(req: Request, res: Response) => {
-    const {categories, recipe} = req.body
-
+    const recipe = req.body.recipe
+    const categories = req.body.categories
+    const categorias: Category= {id: 1, name: "jorge"}
+    console.log(categories)
     const createdRecipe = await prisma.post.create({
         data: {
-            categories: categories,
+            categories: [
+                {
+                    id: 1,
+                    name: "a"}
+            ],
             recipe: recipe
         },
     })
@@ -27,4 +33,9 @@ export const createRecipes = async(req: Request, res: Response) => {
     }
 
     res.status(200).json("recipe created successfully")
+}
+
+export const getDailyRecipe = async(req: Request, res: Response) => {
+    const recipes = await prisma.post.findMany()
+    res.json(recipes.length)
 }
