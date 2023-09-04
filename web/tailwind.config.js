@@ -11,6 +11,19 @@ module.exports = {
         "md": "750px",
         "lg": "1000px"
       }, 
+
+      keyframes: {
+        pop: {
+          "0": { transform: "translateY(-20%)"},
+          "50%": { transform: "translateY(10%)"},
+          "100%": { transform: "translateY(0)"},
+        }
+      },
+
+      animation: {
+        pop: "pop 400ms ease-in"
+      },
+
       colors: {
         "primary-base": "#4AAE48",
         "primary-light": "#8ED676",

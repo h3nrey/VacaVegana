@@ -5,6 +5,7 @@ import SearchBar from "./Header/SearchBar";
 import Logo from "./Logo";
 import { useEffect, useState } from "react";
 import PcSearchBar from "./Header/PcSearchBar";
+import AvatarMenu from "./Header/AvatarMenu/AvatarMenu";
 
 export default function Header() {
     const [showBar, setShowBar] = useState(false);
@@ -20,8 +21,11 @@ export default function Header() {
             )}
 
             {/* Right  */}
-            <SearchBar barState={showBar} setBarState={setShowBar} />
+            <div className="flex gap-2 items-center">
+                <SearchBar barState={showBar} setBarState={setShowBar} />
+                <AvatarMenu />
 
+            </div>
         </div>
     )
 }

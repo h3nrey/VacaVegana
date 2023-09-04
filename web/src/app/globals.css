@@ -5,3 +5,24 @@
 input:visited, input:focus, input:focus-visible {
   outline: none;
 }
+
+.flag{
+  position: relative;
+  z-index: 10;
+}
+
+.flag::before {
+  position: absolute;
+  background-color: #8ED676;
+  width: 130%;
+  height: 100%;
+  z-index: -1;
+  content: "";
+  transform: translateX(-20%);
+  clip-path: polygon(0% 0%, 100% 0, 97% 50%, 100% 100%, 0% 100%);
+  border-radius: 0.25rem;
+}
+
+.recipe__link:hover span{
+  transform: translateX(-10%);
+}
