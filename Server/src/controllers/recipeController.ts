@@ -7,6 +7,17 @@ export const getTrendingRecipes = async(req: Request, res: Response) => {
         orderBy: {
             likes: "desc"
         },
+        select: {
+            categories: true,
+            recipe: {
+                select: {
+                    title: true,
+                    prepTime: true,
+                    images: true,
+                }
+            }
+        },
+        take: 9
     })
 
     res.status(200).json(tredingRecipes)
@@ -70,5 +81,7 @@ export const getDailyRecipe = async(req: Request, res: Response) => {
             id: recipeId
         }
     })
+
+
     res.status(200).json(randomRecipe)
 }
