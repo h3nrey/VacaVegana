@@ -20,7 +20,7 @@ export const getTrendingRecipes = async(req: Request, res: Response) => {
         take: 9
     })
 
-    res.status(200).json(tredingRecipes)
+    res.status(201).json(tredingRecipes)
 }
 
 export const createRecipes = async(req: Request, res: Response) => {
@@ -79,6 +79,13 @@ export const getDailyRecipe = async(req: Request, res: Response) => {
     const randomRecipe = await prisma.recipe.findUnique({
         where: {
             id: recipeId
+        },
+        select: {
+            title: true,
+            desc: true,
+            prepTime: true,
+            redimento: true,
+            images: true,
         }
     })
 

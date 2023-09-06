@@ -9,14 +9,16 @@ interface ILogo {
     color: "verde" | "branca"
 }
 export default function Logo({ height, color }: ILogo) {
-    const screenWidth = useRef(window.innerWidth);
+    // const screenWidth = useRef(window.innerWidth);
     return (
         <>
             <Link href="/" className="">
                 <Image
+                    priority
                     src={color == "verde" ? logoVerde : logoBranca}
                     alt="Vaca Verde"
-                    height={screenWidth.current < 800 ? height[0] : height[1]}
+                    // height={screenWidth.current < 800 ? height[0] : height[1]}
+                    height={1000 < 800 ? height[0] : height[1]}
                 />
             </Link>
         </>
