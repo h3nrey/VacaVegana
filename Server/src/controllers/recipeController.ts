@@ -6,33 +6,59 @@ export const getTrendingRecipes = async(req: Request, res: Response) => {
     const tredingRecipes = await prisma.post.findMany({
         orderBy: {
             likes: "desc"
-        }
+        },
     })
 
     res.status(200).json(tredingRecipes)
 }
 
 export const createRecipes = async(req: Request, res: Response) => {
-    const recipe = req.body.recipe
+    const {
+        title, 
+        desc, 
+        prepTime, 
+        rendimento, 
+        images, 
+        stats,
+        ingredients,
+        cookSteps
+    } = req.body.recipe
     const categories = req.body.categories
-    const categorias: Category= {id: 1, name: "jorge"}
-    console.log(categories)
+
+    if (categories.length < 0) return
+
+    if(!title || !desc || !prepTime || !rendimento || !images || !stats || !ingredients || !cookSteps) {
+        res.status(400).json({data: [], message: "Not all required fields have been filled out"})
+        throw new Error("Not all required fields have been filled out")
+    }
+
     const createdRecipe = await prisma.post.create({
         data: {
-            categories: [
-                {
-                    id: 1,
-                    name: "a"}
-            ],
-            recipe: recipe
-        },
+            categories: {
+                create: categories
+            },
+            recipe: {
+                create: {
+                    title,
+                    desc,
+                    prepTime,
+                    redimento: rendimento,
+                    images,
+                    stats,
+                    ingredients,
+                    cookSteps: {
+                        create: cookSteps
+                    } 
+                }
+            }
+        }
     })
 
     if(!createdRecipe) {
         throw new Error("Error on creating recipe")
     }
 
-    res.status(200).json("recipe created successfully")
+    res.status(201).json(`${title} recipe created successfully`)
 }
 
 export const getDailyRecipe = async(req: Request, res: Response) => {

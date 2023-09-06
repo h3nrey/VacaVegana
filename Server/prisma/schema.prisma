@@ -16,39 +16,63 @@ model User {
 }
 
 model Post {
-  id         String     @id @default(uuid())
-  likes      Int        @default(0)
-  categories Category[]
-  date       DateTime   @default(now())
-  recipe     Recipe     @relation(fields: [recipeId], references: [id])
-  recipeId   Int
-  User       User?      @relation(fields: [userId], references: [id])
-  userId     String?
+  id                String              @id @default(uuid())
+  likes             Int                 @default(0)
+  categories        Category[]
+  date              DateTime            @default(now())
+  recipe            Recipe              @relation(fields: [recipeId], references: [id])
+  recipeId          Int
+  User              User?               @relation(fields: [userId], references: [id])
+  userId            String?
+  CategoriesOnPosts CategoriesOnPosts[]
 }
 
 model Recipe {
-  id          Int        @id @default(autoincrement())
-  title       String
-  desc        String
-  prepTime    Int
-  redimento   String
-  images      String[]
-  stats       String[] //[Calories, Fat, Carbohydrates, Protein]
-  ingredients String[]
-  cookSteps   CookStep[]
-  Post        Post[]
+  id                 Int                  @id @default(autoincrement())
+  title              String
+  desc               String
+  prepTime           Int
+  redimento          String
+  images             String[]
+  stats              String[] //[Calories, Fat, Carbohydrates, Protein]
+  ingredients        String[]
+  cookSteps          CookStep[]
+  Post               Post[]
+  CookStepsOnRecipes CookStepsOnRecipes[]
 }
 
 model CookStep {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  Recipe      Recipe? @relation(fields: [recipeId], references: [id])
-  recipeId    Int?
+  id                 Int                  @id @default(autoincrement())
+  title              String
+  description        String
+  Recipe             Recipe?              @relation(fields: [recipeId], references: [id])
+  recipeId           Int?
+  CookStepsOnRecipes CookStepsOnRecipes[]
+}
+
+model CookStepsOnRecipes {
+  cookStep   CookStep @relation(fields: [cookStepId], references: [id])
+  cookStepId Int
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId   Int
+
+  @@id([cookStepId, recipeId])
+  @@unique([cookStepId, recipeId])
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
-  title String
-  posts Post[]
+  id                Int                 @id @default(autoincrement())
+  title             String
+  posts             Post[]
+  CategoriesOnPosts CategoriesOnPosts[]
+}
+
+model CategoriesOnPosts {
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+
+  @@id([categoryId, postId])
+  @@unique([categoryId, postId])
 }
