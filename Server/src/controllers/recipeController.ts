@@ -63,5 +63,12 @@ export const createRecipes = async(req: Request, res: Response) => {
 
 export const getDailyRecipe = async(req: Request, res: Response) => {
     const recipes = await prisma.post.findMany()
-    res.json(recipes.length)
+    const randomIndex = Math.floor(Math.random() * recipes.length)
+    const recipeId = recipes[randomIndex].recipeId
+    const randomRecipe = await prisma.recipe.findUnique({
+        where: {
+            id: recipeId
+        }
+    })
+    res.status(200).json(randomRecipe)
 }
