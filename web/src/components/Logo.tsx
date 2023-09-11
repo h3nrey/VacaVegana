@@ -1,6 +1,6 @@
 import Image from "next/image";
-import logoBranca from '../../../public/logoBranca.svg'
-import logoVerde from '../../../public/logoVerde.svg'
+import logoBranca from '../../public/logoBranca.svg'
+import logoVerde from '../../public/logoVerde.svg'
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 

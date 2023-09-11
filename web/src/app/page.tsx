@@ -1,17 +1,35 @@
 import Image from 'next/image'
-import Header from './Components/Header'
-import Hero from './Components/Hero'
-import DailyRecipe from './Components/DailyRecipe'
+import Header from '../components/Header'
+import Hero from '../components/Hero'
+import DailyRecipe from '../components/DailyRecipe/DailyRecipe'
+import StarredRecipes from '@/components/Home/StarredRecipes'
 
-export default function Home() {
+type Recipe = {
+  title: string,
+  desc: string,
+  prepTime: string,
+  images: string[],
+}
+export default async function Home() {
   return (
     <>
-      <Header />
       <main className="">
-        <div className='flex gap-4'>
+        <section className='flex gap-4'>
           <DailyRecipe />
           <Hero />
+        </section>
+
+        <div className='px-10'>
+          <section className='mt-10 overflow-hidden'>
+            <h2
+              className='text-primary-base text-2xl'>
+              Receitas em destaque
+            </h2>
+            <StarredRecipes />
+            <p>alkdjakldjkla</p>
+          </section>
         </div>
+
       </main>
     </>
   )

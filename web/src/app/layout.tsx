@@ -1,3 +1,4 @@
+import Header from '@/components/Header'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins, Chewy } from 'next/font/google'
@@ -25,7 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${chewy.variable} font-sans`}>{children}</body>
+      <body className={`${poppins.variable} ${chewy.variable} font-sans`}>
+        <Header />
+        {children}
+      </body>
     </html >
   )
 }

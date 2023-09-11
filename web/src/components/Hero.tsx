@@ -1,6 +1,6 @@
 import Image from "next/image";
-import logo from "../../../public/logoVerde.svg";
-import cow from "../../../public/cow.png";
+import logo from "../../public/logoVerde.svg";
+import cow from "../../public/cow.png";
 
 export default function Hero() {
     return (
