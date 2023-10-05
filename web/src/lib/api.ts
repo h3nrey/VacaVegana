@@ -20,6 +20,10 @@ export async function getSingleRecipe(recipeId: string) {
     
 }
 
+export async function getUser() {
+    
+}
+
 export async function getTrendingRecipes() {
     const res = await fetch(`${API_URL}recipes/trending`);
     const data = await res.json()
