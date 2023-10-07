@@ -7,6 +7,12 @@ const api = axios.create({
     baseURL: API_URL
 })
 
+type resType = {
+    data: any,
+    message: string,
+    wasSuccessful: boolean,
+}
+
 export async function getDailyRecipeId() {
     const res = await api.get("recipes/daily")
     const payload = await res.data
@@ -36,12 +42,15 @@ export async function loginUser({username, password}: loginType) {
         username,
         password
     })
-    const payload = response.data
+    const payload:resType = response.data
 
-    if(payload) {
-        Cookies.set("token", payload.token)
+    console.log(payload)
+
+    if(payload.wasSuccessful) {
+        Cookies.set("token", payload.data.token)
     }
-    console.log(response.data)
+
+    return payload
 }
 
 export async function getUser(userToken: string | null) {

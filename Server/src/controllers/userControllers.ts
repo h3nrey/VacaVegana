@@ -5,6 +5,12 @@ import jwt from "jsonwebtoken"
 
 const prisma = new PrismaClient({})
 
+type resType = {
+    data: any,
+    message: string,
+    wasSuccessful: boolean,
+}
+
 export const registerUser = async(req: Request, res: Response) => {
     const {username, email, password} = req.body
 
@@ -55,7 +61,7 @@ export const loginUser = async(req: Request, res: Response) => {
 
     // Check if all fields are filled 
     if(!username || !password) {
-        res.status(400).json("You must fill all fields")
+        res.json("You must fill all fields")
     }
 
     // Check if the user exists 
@@ -65,23 +71,44 @@ export const loginUser = async(req: Request, res: Response) => {
         }
     })
 
-    if(user) {
-        const passwordMatch = await bcrypt.compare(password, user.password)
-
-        if(passwordMatch) {
-            res.json({
-                id: user.id,
-                username: user.username,
-                token: generateToken(user.id)
-            })
-        } else {
-            res.status(400).json("wrong passwords")
+    if(!user) {
+        const clientRes: resType = {
+            data: {},
+            message: "Theres no user with this username",
+            wasSuccessful: false
         }
-    } else{
-        res.status(400).json("user not exists")
+
+        res.json(clientRes)
+        return
+    }
+    
+
+    // Check if passwords match 
+    const passwordMatch = await bcrypt.compare(password, user.password)
+
+    if(!passwordMatch) {
+        const clientRes: resType = {
+            data: {},
+            message: "Passwords dont match!!!",
+            wasSuccessful: false
+        }
+
+        res.json(clientRes)
+        return
+    }
+    
+
+    const clientRes: resType = {
+        data: {
+            id: user.id,
+            username: user.username,
+            token: generateToken(user.id)
+        },
+        message: "User Created successfully",
+        wasSuccessful: true
     }
 
-
+    res.json(clientRes)
 }
 
 export const getUser = async(req: Request, res: Response) => {

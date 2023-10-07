@@ -17,11 +17,17 @@ module.exports = {
           "0": { transform: "translateY(-20%)"},
           "50%": { transform: "translateY(10%)"},
           "100%": { transform: "translateY(0)"},
+        },
+        toastPop: {
+          "1%": { transform: "translateX(-20%)"},
+          "90%": { transform: "translateX(5%)"},
+          "100%": { transform: "translateX(0)"}
         }
       },
 
       animation: {
-        pop: "pop 400ms ease-in"
+        pop: "pop 400ms ease-in",
+        toastPop: "toastPop 400ms forwards"
       },
 
       colors: {
