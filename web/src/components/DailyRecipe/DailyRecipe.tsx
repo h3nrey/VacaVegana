@@ -1,3 +1,4 @@
+import { Categories } from "@/lib/constants";
 import { getDailyRecipeId, getSingleRecipe } from "../../lib/api";
 import InfoCard from "./InfoCard"
 import MoreDetails from "./MoreDetails"
@@ -10,15 +11,14 @@ type Recipe = {
 }
 
 async function getData() {
-    const recipeId = await getDailyRecipeId()
-    const recipe = await getSingleRecipe(recipeId)
+    const res = await getDailyRecipeId()
+    const recipe = await getSingleRecipe(res.recipeId)
     return recipe
 }
 
 export default async function DailyRecipe() {
     const { id, categories, recipe } = await getData()
-    console.log("ID")
-    console.log(id)
+
     return (
         <>
             {recipe && (

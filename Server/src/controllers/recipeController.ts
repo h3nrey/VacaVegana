@@ -180,5 +180,7 @@ export const getDailyRecipe = async(req: Request, res: Response) => {
     const randomIndex = Math.floor(Math.random() * recipes.length)
     const recipeId = recipes[randomIndex].id
 
-    res.status(200).json(recipeId)
+    res.status(200).json({
+        recipeId: recipeId
+    })
 }

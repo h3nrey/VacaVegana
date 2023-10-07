@@ -25,3 +25,11 @@ export type CookStep = {
     title:  string           
     description:    string     
 }
+
+export type User = {
+	id: string,
+	username: string,
+	email: string,
+	avatarURL: string,
+	savedRecipes: string[]
+}

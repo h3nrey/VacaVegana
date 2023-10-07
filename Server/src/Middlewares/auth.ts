@@ -31,6 +31,7 @@ export const protect = async(req: Request, res: Response, next: NextFunction) =>
                     id: true,
                     username: true,
                     email: true,
+                    avatarURL: true,
                     savedRecipes: true,
                 }
             })

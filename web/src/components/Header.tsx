@@ -6,8 +6,13 @@ import Logo from "./Logo";
 import { useEffect, useState } from "react";
 import PcSearchBar from "./Header/PcSearchBar";
 import AvatarMenu from "./Header/AvatarMenu/AvatarMenu";
+import { User } from "@/lib/constants";
+import LoginLink from "./Header/LoginLink";
 
-export default function Header() {
+interface props {
+    user: User | null
+}
+export default function Header({ user }: props) {
     const [showBar, setShowBar] = useState(false);
 
     return (
@@ -23,7 +28,15 @@ export default function Header() {
             {/* Right  */}
             <div className="flex gap-2 items-center">
                 <SearchBar barState={showBar} setBarState={setShowBar} />
-                <AvatarMenu />
+                {user ? (
+                    <AvatarMenu
+                        id={user.id}
+                        username={user.username}
+                        avatarUrl={user.avatarURL}
+                    />
+                ) : (
+                    <LoginLink />
+                )}
 
             </div>
         </div>

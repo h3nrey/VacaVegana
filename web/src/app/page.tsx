@@ -3,6 +3,10 @@ import Header from '../components/Header'
 import Hero from '../components/Hero'
 import DailyRecipe from '../components/DailyRecipe/DailyRecipe'
 import StarredRecipes from '@/components/Home/StarredRecipes'
+import { cookies } from 'next/headers'
+import { getUser } from '@/lib/api'
+import axios from 'axios'
+import { User } from '@/lib/constants'
 
 type Recipe = {
   title: string,

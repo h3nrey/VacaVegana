@@ -1,11 +1,17 @@
 "use client"
-import { Heart, Plus } from "@phosphor-icons/react";
+import { User } from "@phosphor-icons/react";
 import Image from "next/image";
 import Button from "./Button";
 import Popup from "./Popup";
 import { useState } from "react";
 
-export default function AvatarMenu() {
+interface props {
+    id: string
+    username: string
+    avatarUrl: string
+}
+
+export default function AvatarMenu({ id, avatarUrl, username }: props) {
     const [showPopup, setShowPopup] = useState(false);
 
     function handlePopup() {
@@ -15,18 +21,25 @@ export default function AvatarMenu() {
             setShowPopup(true)
         }
     }
+
     return (
         <div className="relative">
-            <button onClick={handlePopup}>
-                <Image
-                    className="rounded-full w-10 h-10 object-cover"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Dwayne_Johnson_2014_%28cropped%29.jpg/800px-Dwayne_Johnson_2014_%28cropped%29.jpg"
-                    width={40} height={40} alt=""
-                />
+            <button onClick={handlePopup} className="rounded-full w-10 h-10 overflow-hidden">
+                {avatarUrl ? (
+                    <img
+                        className=" w-full h-full object-cover"
+                        src={avatarUrl}
+                        width={40} height={40} alt=""
+                    />
+                ) : (
+                    <span className="w-full h-full flex items-center justify-center bg-white text-primary-base">
+                        <User size={24} weight="bold" />
+                    </span>
+                )}
             </button>
 
             {showPopup && (
-                <Popup close={setShowPopup} />
+                <Popup userId={id} username={username} close={setShowPopup} />
             )}
         </div >
     )
