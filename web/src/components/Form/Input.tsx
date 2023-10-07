@@ -1,28 +1,18 @@
 "use client"
 
+import { FieldValues, UseFormRegister } from "react-hook-form"
+
 interface Props {
-    register?: any
+    register?: UseFormRegister<any>
     label: string
     type?: string
     name: string,
+    required?: boolean
     placeholder: string,
 }
 
-export default function Input({ register, label, type, name, placeholder }: Props) {
+export default function Input({ register, label, required, type, name, placeholder }: Props) {
     return (
-        <div>
-            <label
-                htmlFor=""
-                className="text-white text-[1.125rem]"
-            >
-                {label}
-            </label>
-            <input
-                {...register(name)}
-                type={type ? type : "text"}
-                className="bg-white p-2 pl-4 w-full text-black rounded-sm"
-                placeholder={placeholder}
-            />
-        </div>
+        
     )
 }
