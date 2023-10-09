@@ -19,8 +19,8 @@ export default function NutStats({ stats }: { stats: string[] }) {
     ]
 
     return (
-        <div className="bg-primary-base gap-4 flex flex-col w-fit p-4 rounded-sm text-white">
-            <p className="text-xl">Dados nutricionais</p>
+        <div className="bg-primary-base gap-8 flex flex-col w-fit p-4 rounded-sm text-white">
+            <p className="text-xl font-medium">Dados nutricionais</p>
 
             <div className="flex gap-1">
                 {stats.map((stat, index) => (

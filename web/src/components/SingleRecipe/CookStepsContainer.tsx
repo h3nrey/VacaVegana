@@ -9,7 +9,7 @@ export default function CookStepsContainer({ steps }: { steps: CookStep[] }) {
             <div className="mt-4 flex flex-col gap-4">
                 {steps.map((step, index) => (
                     <div
-                        className="bg-primary-base flex flex-col max-w-[30rem] gap-3 rounded-sm p-4 pb-8 w-fit"
+                        className="bg-primary-base flex flex-col max-w-[40rem] gap-3 rounded-sm p-4 pb-8 w-fit"
                         key={index}
                     >
                         <div className="flex items-center gap-2 text-white">

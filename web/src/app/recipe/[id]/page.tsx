@@ -4,6 +4,7 @@ import IngredientsContainer from "@/components/SingleRecipe/IngredientsContainer
 import NutStats from "@/components/SingleRecipe/NutStats"
 import { getSingleRecipe } from "@/lib/api"
 import { Post } from "@/lib/constants"
+import Link from "next/link"
 
 interface Recipe {
     params: {
@@ -21,9 +22,28 @@ export default async function Recipe({ params }: Recipe) {
             {data ? (
                 <div>
                     <header className="flex flex-col gap-2">
-                        <h2 className="text-3xl text-primary-base font-bold font-title">
-                            {data.recipe.title}
-                        </h2>
+                        <div className="flex gap-8 items-center">
+                            <h2 className="text-[2rem] text-primary-base font-bold font-title">
+                                {data.recipe.title}
+                            </h2>
+                            <ul
+                                className="flex gap-4"
+                            >
+                                {data.categories.map(categorie => (
+                                    <>
+                                        <li
+                                            className="text-white px-2 bg-primary-base rounded-full hover:scale-105 transition-all hover:bg-yellow outline outline-yellow-light outline-0 hover:outline-1"
+                                            key={categorie.id}
+                                        >
+                                            <Link href={`/category/${categorie.id}`}>
+                                                {categorie.title}
+                                            </Link>
+                                        </li>
+                                    </>
+                                ))}
+
+                            </ul>
+                        </div>
 
                         {/* Prep time + Rendimento  */}
                         <div className="flex gap-4 items-center">
@@ -48,7 +68,7 @@ export default async function Recipe({ params }: Recipe) {
 
                     </header>
 
-                    <div className="mt-8 flex flex-col gap-4">
+                    <div className="mt-8 flex flex-col gap-10">
                         <ImageCarousel images={data.recipe.images} />
 
                         <NutStats

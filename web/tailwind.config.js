@@ -36,6 +36,7 @@ module.exports = {
         "white": "#ffffff",
         "gray": "#EdddEF",
         "yellow": "#FBD34A",
+        "yellow-light": "#FFE385"
       },
       borderRadius: {
         "sm": "6px",
