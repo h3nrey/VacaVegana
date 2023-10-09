@@ -23,7 +23,6 @@ export async function getSingleRecipe(recipeId: string) {
     try {
         const res = await fetch(`${API_URL}recipes/recipe/${recipeId}`)
         const data = await res.json()
-        console.log(data)
         return data
     } catch {
         return null
@@ -37,6 +36,12 @@ type loginType = {
     password: string,
 }
 
+type signType = {
+    username: string,
+    email: string,
+    password: string,
+}
+
 export async function loginUser({username, password}: loginType) {
     const response = await api.post("users/login", {
         username,
@@ -44,7 +49,20 @@ export async function loginUser({username, password}: loginType) {
     })
     const payload:resType = response.data
 
-    console.log(payload)
+    if(payload.wasSuccessful) {
+        Cookies.set("token", payload.data.token)
+    }
+
+    return payload
+}
+
+export async function registerUser({username, email, password}: signType) {
+    const response = await api.post("users/signup", {
+        username,
+        email,
+        password
+    })
+    const payload:resType = response.data
 
     if(payload.wasSuccessful) {
         Cookies.set("token", payload.data.token)

@@ -15,6 +15,7 @@ type Recipe = {
   images: string[],
 }
 export default async function Home() {
+  const userToken = await cookies().get("token")
   return (
     <>
       <main className="">

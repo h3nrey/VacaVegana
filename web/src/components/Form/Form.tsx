@@ -37,7 +37,7 @@ export default function Form({ children, onSubmit }: Props) {
                     })}
                 </div>
             </form>
-            <DevTool control={control} />
+            <DevTool control={control} />   
         </>
     )
 }

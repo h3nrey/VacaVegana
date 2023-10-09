@@ -44,15 +44,21 @@ export const registerUser = async(req: Request, res: Response) => {
         }
     })  
 
-    if(user){
-        res.status(201).json({
+    if(!user) {
+        res.status(400).json("User not created")
+    }
+
+    const clientRes: resType = {
+        data: {
             id: user.id,
             username: user.username,
             token: generateToken(user.id)
-        })
-    } else {
-        res.status(400).json("User not created")
+        },
+        message: "User Created successfully",
+        wasSuccessful: true
     }
+
+    res.json(clientRes)
 }
 
 
@@ -89,7 +95,7 @@ export const loginUser = async(req: Request, res: Response) => {
     if(!passwordMatch) {
         const clientRes: resType = {
             data: {},
-            message: "Passwords dont match!!!",
+            message: "Wrong passwords!!!",
             wasSuccessful: false
         }
 
@@ -104,7 +110,7 @@ export const loginUser = async(req: Request, res: Response) => {
             username: user.username,
             token: generateToken(user.id)
         },
-        message: "User Created successfully",
+        message: "User logged successfully",
         wasSuccessful: true
     }
 
